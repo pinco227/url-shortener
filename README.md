@@ -1,5 +1,15 @@
 
 
+# URL Shortener
+
+**URL Shortener** is a web app that helps users convert long URLs into short ones that redirects back to the original ones. This is helpful for sharing URLs as they are short and user-friendly. This project serves as a Mini-Project for **Secure Web Programing** module of **University of Galway's** for **Postgraduate Diploma in Cybersecurity and Software Development.**
+
+## Design & Development
+### Flow Diagram
+
+### DB Schema
+
+
 ## Development
 ### Environment (IDE):
 For developing this project I used VSCode IDE. To keep dependencies project-separated, I used python's [`venv`](https://docs.python.org/3/library/venv.html) library using the following commands: `py -m venv path/to/venv` to create the virtual environment, and then `source path/to/venv/Scripts/activate` to activate the virtual env on the current terminal. All packages installed when venv is active are only installed for this project and not globally.
