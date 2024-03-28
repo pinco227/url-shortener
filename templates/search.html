@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}
+<a href="{{ url_for('index') }}">Home</a> / Search{% if query %}: {{ query }}{% endif %}
+{% endblock title %}
+{% block content %}
+<h1>Search</h1>
+
+<a href="{{ url_for('index') }}" class="btn btn-default">Home</a>
+{% if query %}<a href="{{ url_for('search') }}" class="btn btn-secondary">Clear</a>{% endif %}
+<div class="inner-container">
+    <form method="GET">
+        <div>
+            {{ form.q.label }}
+            {{ form.q(placeholder="google", value=(query if query else '')) }}
+            {% for error in form.q.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+{% if query %}
+<div class="inner-container">
+    <h3>Query: {{ query }}</h3>
+    {% if urls|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <td>Short</td>
+                <td>Original</td>
+                <td>User</td>
+                <td align="center">Clicks</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url in urls %}
+            <tr>
+                <td><a href="{{ url['shortened_url'] }}" target="_blank">{{ url['shortened_url'] }}</a></td>
+                <td class="break"><a href="{{ url['original_url'] }}" target="_blank">{{ url['original_url'] }}</a></td>
+                <td><a href="{{ url_for('profile', user_id=url['user_id']) }}">{{ url['username'] }}</a>
+                </td>
+                <td align="center">{{ url['clicks'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No URLs found.</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

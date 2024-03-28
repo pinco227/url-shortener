@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block title %}
+<a href="{{ url_for('index') }}">Home</a> / <a href="{{ url_for('profile') }}">Profile</a> / Edit
+{% endblock title %}
+{% block content %}
+<h1>Edit Profile</h1>
+{% if current_user.is_authenticated %}
+<div class="inner-container">
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div>
+            {{ form.email.label }}
+            {{ form.email(placeholder="Email Address", value=current_user.email) }}
+            {% for error in form.email.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.fname.label }}
+            {{ form.fname(placeholder="First Name", value=current_user.fname) }}
+            {% for error in form.fname.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.lname.label }}
+            {{ form.lname(placeholder="Last Name", value=current_user.lname) }}
+            {% for error in form.lname.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.phone.label }}
+            {{ form.phone(placeholder="Phone Number", value=current_user.phone) }}
+            {% for error in form.phone.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.website.label }}
+            {{ form.website(placeholder="Website URL", value=current_user.website) }}
+            {% for error in form.website.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.recaptcha }}
+            {% for error in form.recaptcha.errors %}
+            <div class="input-error">
+                {{error}}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <a href="{{ url_for('profile') }}" class="btn btn-default">Cancel</a>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+
+<a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+{% else %}
+<p>Please log in or register to use the URL shortener.</p>
+<a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a>
+{% endif %}
+{% endblock %}

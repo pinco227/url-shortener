@@ -1,0 +1,13 @@
+# IDE
+.vscode
+# Python
+__pycache__/
+.pylintrc
+# Virtual Environment
+venv/
+# Local environmental variables
+env.py
+.env
+# Local DB Files
+*.db
+*.sqlite3

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+<a href="{{ url_for('index') }}">Home</a> / Login
+{% endblock title %}
+{% block content %}
+<h1>Login</h1>
+<div class="inner-container">
+  <form method="POST">
+    {{ form.csrf_token }}
+    <div>
+      {{ form.username.label }}
+      {{ form.username(class="form-control", placeholder="Username") }}
+      {% for error in form.username.errors %}
+      <div class="input-error">
+        {{error}}
+      </div>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.password.label }}
+      {{ form.password(class="form-control", placeholder="Password") }}
+      {% for error in form.password.errors %}
+      <div class="input-error">
+        {{error}}
+      </div>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </form>
+</div>
+New here?
+<a href="{{ url_for('register') }}" class="btn btn-default">Register</a>
+{% endblock %}

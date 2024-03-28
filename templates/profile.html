@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}
+<a href="{{ url_for('index') }}">Home</a> / Profile
+{% endblock title %}
+{% block content %}
+<h1>Profile</h1>
+{% if user %}
+<div class="inner-container">
+    <ul>
+        <li>Username: {{ user.username }}</li>
+        <li>First Name: {{ user.fname }}</li>
+        <li>Last Name: {{ user.lname }}</li>
+        {% if current_user.is_authenticated and user == current_user %}
+        <li>Email: {{ user.email }}</li>
+        <li>Phone: {{ user.phone }}</li>
+        {% endif %}
+        <li>Website: {{ user.website }}</li>
+    </ul>
+</div>
+{% if current_user.is_authenticated and user == current_user %}
+<a href="{{ url_for('profile_edit') }}" class="btn btn-primary">Edit</a>
+<a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+{% endif %}
+{% if user != current_user %}
+<div class="inner-container">
+    <h3>URLs</h3>
+    {% if urls and urls|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <td>Short</td>
+                <td>Original</td>
+                <td align="center">Clicks</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url in urls %}
+            <tr>
+                <td><a href="{{ url['shortened_url'] }}" target="_blank">{{ url['shortened_url'] }}</a></td>
+                <td class="break"><a href="{{ url['original_url'] }}" target="_blank">{{ url['original_url'] }}</a></td>
+                <td align="center">{{ url['clicks'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>User has no URLs yet.</p>
+    {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div class="inner-container">
+    <p>User not found.</p>
+</div>
+{% endif %}
+{% endblock %}

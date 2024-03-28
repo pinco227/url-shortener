@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}
+<a href="{{ url_for('index') }}">Home</a> / My URLs
+{% endblock title %}
+{% block content %}
+<h1>My URLs</h1>
+{% if current_user.is_authenticated %}
+
+<a href="{{ url_for('index') }}" class="btn btn-default">Home</a>
+<a href="{{ url_for('shorten') }}" class="btn btn-primary">Create a short URL</a>
+<div class="inner-container">
+    <h3>Your URLs</h3>
+    {% if urls|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <td>Short</td>
+                <td>Original</td>
+                <td align="center">Clicks</td>
+                <td align="center">Delete</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url in urls %}
+            <tr>
+                <td><a href="{{ url['shortened_url'] }}" target="_blank">{{ url['shortened_url'] }}</a></td>
+                <td class="break"><a href="{{ url['original_url'] }}" target="_blank">{{ url['original_url'] }}</a></td>
+                <td align="center">{{ url['clicks'] }}</td>
+                <td align="center">
+                    <a href="{{ url_for('delete_url', shortened_url=url['shortened_url']) }}"
+                        class="btn btn-secondary delete">x</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>You have no short URLs yet.</p>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+{% else %}
+<p>Please log in or register to use the URL shortener.</p>
+<a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+<h1>Welcome to the URL Shortener!</h1>
+{% if current_user.is_authenticated %}
+<h2>Hello, {{ current_user.username }}</h2>
+
+<div class="inner-container">
+  <h3>My Dashboard</h3>
+  <table>
+    <thead>
+      <tr>
+        <td>Statistic</td>
+        <td>Value</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>URLs</td>
+        <td>{{ stats.urls }}</td>
+      </tr>
+      <tr>
+        <td>Total Clicks</td>
+        <td>{{ stats.clicks }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <a href="{{ url_for('my_urls') }}" class="btn btn-default">My URLs</a>
+    <a href="{{ url_for('shorten') }}" class="btn btn-primary">Create a short URL</a>
+  </p>
+</div>
+
+<a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+{% else %}
+<p>Please log in or register to use the URL shortener.</p>
+<a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a>
+{% endif %}
+{% endblock %}
