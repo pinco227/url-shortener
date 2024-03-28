@@ -6,9 +6,10 @@
 
 ## Design & Development
 ### Flow Diagram
+![Flow Diagram](https://github.com/pinco227/url-shortener/blob/main/docs/app-flow-diagram.jpg)
 
 ### DB Schema
-
+![DB Schema](https://github.com/pinco227/url-shortener/blob/main/docs/db-schema.jpg)
 
 ## Development
 ### Environment (IDE):
