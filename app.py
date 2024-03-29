@@ -158,7 +158,7 @@ def login():
         # Check if user exists and password hash matches
         if user_row and bcrypt.check_password_hash(user_row['password'], password):
           thirty_minutes_ago = datetime.utcnow() - timedelta(minutes=30)
-          last_failed_login = datetime.strptime(user_row['last_failed_login'], '%Y-%m-%d %H:%M:%S.%f')
+          last_failed_login = datetime.strptime(user_row['last_failed_login'], '%Y-%m-%d %H:%M:%S.%f') if user_row['last_failed_login'] is not None else None
           if user_row['failed_login_attempts'] > 4 and last_failed_login >= thirty_minutes_ago:
             time_elapsed = current_time - last_failed_login
             remaining_minutes = (timedelta(minutes=30) - time_elapsed).total_seconds() / 60
