@@ -159,7 +159,7 @@ def login():
         if user_row and bcrypt.check_password_hash(user_row['password'], password):
           thirty_minutes_ago = datetime.utcnow() - timedelta(minutes=30)
           last_failed_login = datetime.strptime(user_row['last_failed_login'], '%Y-%m-%d %H:%M:%S.%f') if user_row['last_failed_login'] is not None else None
-          if user_row['failed_login_attempts'] > 4 and last_failed_login >= thirty_minutes_ago:
+          if int(0 if user_row['failed_login_attempts'] is None else user_row['failed_login_attempts']) > 4 and last_failed_login >= thirty_minutes_ago:
             time_elapsed = current_time - last_failed_login
             remaining_minutes = (timedelta(minutes=30) - time_elapsed).total_seconds() / 60
             flash(f"Too many failed attempts. Account locked for {int(remaining_minutes)} minutes.", "error")
